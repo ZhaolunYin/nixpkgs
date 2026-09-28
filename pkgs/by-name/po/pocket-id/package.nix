@@ -14,18 +14,18 @@
 }:
 buildGo127Module (finalAttrs: {
   pname = "pocket-id";
-  version = "2.13.0";
+  version = "2.16.0";
 
   src = fetchFromGitHub {
     owner = "pocket-id";
     repo = "pocket-id";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-8I0VcbDaB+xxoLX1GzK0zzfkOrWAlEOliGhP1oEHRfs=";
+    hash = "sha256-4dTXzw54mxOWG3hz+1wRJTpwbLWmHmKzxgFwT3yEOn0=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/backend";
 
-  vendorHash = "sha256-yE4mbS9bhs7Iyq2wa2fuHX8J9Xj/XL6M6bS/2CPRNn0=";
+  vendorHash = "sha256-koGfs+XwwMZbikN0aY8jprBWcK97SVFlmlOafNFg/CI=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
@@ -70,7 +70,7 @@ buildGo127Module (finalAttrs: {
       inherit (finalAttrs) pname version src;
       pnpm = pnpm_10;
       fetcherVersion = 4;
-      hash = "sha256-U3QpgkUlAHfP9fkxbyJ2TEsSuzqxAR7h9n6A36EUMHY=";
+      hash = "sha256-MADbUI/SJSHZ9pAeeW6cOtmRP7+cTG0ol4zJTjA37mQ=";
     };
 
     env.BUILD_OUTPUT_PATH = "dist";
@@ -113,5 +113,9 @@ buildGo127Module (finalAttrs: {
       esch
     ];
     platforms = lib.platforms.unix;
+    identifiers.cpeParts = lib.meta.cpeFullVersionWithVendor "pocket-id" finalAttrs.version // {
+      # Vendor is pocket-id while product is pocket_id, deviating from pname.
+      product = "pocket_id";
+    };
   };
 })

@@ -1,47 +1,42 @@
 {
     "testing": {
-        "version": "7.2-rc7",
-        "hash": "sha256:1qr0k903z5v5w9zm5xsmmzcgxmxgx9vwz32g6zhs14s4sn5s0dgw",
+        "version": "7.3-rc5",
+        "hash": "sha256:1slzmxyadz75p6lbk373x1waapyr6ggm6mz999sy5xkmidzg5d1n",
         "lts": false
     },
     "6.1": {
-        "version": "6.1.182",
-        "hash": "sha256:118z7jqabpja5xzlqj73alvsg4sjs6fg5iv8x0da4940dsxid17k",
+        "version": "6.1.188",
+        "hash": "sha256:0fm3048h1c98gxhpwjprjc2jkrhhwaac1vw91hikbhh72g5hlkgd",
         "lts": true
     },
     "5.15": {
-        "version": "5.15.215",
-        "hash": "sha256:19xp4gyp9h341dmvg36i3jm4zgk4lgwrrrdjkzbacgw1l2fjfzym",
+        "version": "5.15.221",
+        "hash": "sha256:130ll4gnj2779kpx8x4r6v28vnwjn4qdw9ksaq3f5vr8wphq4y60",
         "lts": true
     },
     "5.10": {
-        "version": "5.10.264",
-        "hash": "sha256:17j8bdqsq6n0zl5a59chiapxpn7yapqvihqq37414dbq6bn54xgj",
+        "version": "5.10.270",
+        "hash": "sha256:1rzb9ms2v04gwwka7d8byaxrcfymlikslq36p1p1zsabn0ldawyy",
         "lts": true
     },
     "6.6": {
-        "version": "6.6.151",
-        "hash": "sha256:1xv9k5r0rm3gda5hzw7i6rjrpwnhlryzk9j1xfy70as1ffpfa0fy",
+        "version": "6.6.157",
+        "hash": "sha256:0c4c42qzr2vcbqglb9vq5q5vqv4mbqasq1n93j3vf288cg846jmp",
         "lts": true
     },
     "6.12": {
-        "version": "6.12.103",
-        "hash": "sha256:0xiizhw3kk2ggx9yymzmpj0q9ckday1492vqdrhsayw7x2nslhzi",
+        "version": "6.12.111",
+        "hash": "sha256:044qhkby6dgrb4mmggk6j0m6dmlw96c9a7v0lq9gm221c9kxqncy",
         "lts": true
     },
     "6.18": {
-        "version": "6.18.44",
-        "hash": "sha256:0hqd4izrmabjcp22z7h8zrxxp1r2azz78la0j0nfha38y0wdjwhg",
+        "version": "6.18.54",
+        "hash": "sha256:1b5c7v7vxl27z3xrdnqxgyzdv2b8xy464majpv8bn0l1vl10pwwx",
         "lts": true
     },
-    "7.1": {
-        "version": "7.1.8",
-        "hash": "sha256:0j9c88akklsdhivrlx7i0ccgzxcwcgp1zc6dzi65p79796sdq0gz",
-        "lts": false
-    },
     "7.2": {
-        "version": "7.2",
-        "hash": "sha256:1cq2jj1g06gav6xvbxfb1l5jlp43b52ffjvg08ckix8d9k8z7zpr",
+        "version": "7.2.8",
+        "hash": "sha256:0h8rwp1zipb0szf3y05pbmqyscdi4902x239bid7rbfifflxbs0j",
         "lts": false
     }
 }

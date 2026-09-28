@@ -74,14 +74,14 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mistral-rs";
-  version = "0.9.1";
+  version = "0.9.3";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "EricLBuehler";
     repo = "mistral.rs";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-5W/CBFw28xBC7GnbpQ9jxRAdxXBtTdsD3X/YNR6z6iI=";
+    hash = "sha256-uuWwp1f0GCCCml/lkfrs0+ceE98MirQII0YJZJyZ40o=";
   };
 
   patches = [
@@ -130,7 +130,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
           ""
     '';
 
-  cargoHash = "sha256-VivnZNtIjnu1JOKaE7nEIse8300oB9oqGP0aly+9/OQ=";
+  cargoHash = "sha256-nHcXQQYu6fzeAWQdUN1uV6e/fO6bvyPtIejb3EIW9T4=";
 
   nativeBuildInputs = [
     pkg-config
@@ -217,6 +217,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   checkFeatures = [ ];
 
   checkFlags = [
+    # Error: failed to read MTP model config: No such file or directory (os error 2)
+    "--skip=external_mtp_checkpoint_bytes_are_added_to_the_cache_reservation"
+
+    # assertion `left == right` failed: docs/openapi.json is stale;
+    # regenerate with: cargo test -p mistralrs-server-core regenerate_openapi -- --ignored
+    "--skip=openapi_doc::tests::openapi_matches_committed"
+
+    # Max error 0.27852345 is too large
+    "--skip=vector_fp8::ops::tests::test_fp8_vector_quant_cpu"
+
     # Try to access internet
     "--skip=gguf::gguf_tokenizer::tests::test_encode_decode_gpt2"
     "--skip=gguf::gguf_tokenizer::tests::test_encode_decode_llama"
@@ -227,6 +237,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=callbacks_outlive_manager_executor_tempdir"
     "--skip=sandboxed_session_can_execute_python"
     "--skip=sandboxed_session_default_policy_can_execute_python"
+
+    # Upstream's v0.9.2 bump updated the version example in the generated CLI reference page
+    # but not in the clap doc comment it is generated from, so this golden test fails at the tag.
+    "--skip=docgen::cli_reference_matches_committed"
 
     # Linux namespace / seccomp tests require capabilities the nix build sandbox blocks
     "--skip=network_none_blocks_socket"

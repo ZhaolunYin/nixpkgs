@@ -70,9 +70,7 @@ let
     if [[ "$USER" != ${cfg.user} ]]; then
       ${
         if config.security.sudo.enable then
-          "sudo='exec ${config.security.wrapperDir}/sudo -u ${cfg.user} -g ${cfg.group} ${
-            lib.optionalString enableRedis " -g " + redisServer.group
-          } -E'"
+          "sudo='exec ${config.security.wrapperDir}/sudo -u ${cfg.user} -E'"
         else
           ">&2 echo 'Aborting, paperless-manage must be run as user `${cfg.user}`!'; exit 2"
       }
@@ -123,7 +121,6 @@ let
     RestrictNamespaces = true;
     RestrictRealtime = true;
     RestrictSUIDSGID = true;
-    SupplementaryGroups = lib.optional enableRedis redisServer.group;
     SystemCallArchitectures = "native";
     SystemCallFilter = [
       "@system-service"
@@ -720,7 +717,9 @@ in
           "d '${cfg.exporter.directory}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
         ];
 
-        services.paperless.exporter.settings = options.services.paperless.exporter.settings.default;
+        services.paperless.exporter.settings = lib.mapAttrs (
+          _: v: lib.mkDefault v
+        ) options.services.paperless.exporter.settings.default;
 
         systemd.services.paperless-exporter = {
           startAt = lib.defaultTo [ ] cfg.exporter.onCalendar;

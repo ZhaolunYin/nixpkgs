@@ -1,39 +1,6 @@
 { lib }:
 let
-  inherit (lib) optionalAttrs;
-
-  mkLicense =
-    lname:
-    {
-      shortName ? lname,
-      # Most of our licenses are Free, explicitly declare unfree additions as such!
-      free ? true,
-      deprecated ? false,
-      spdxId ? null,
-      url ? null,
-      fullName ? null,
-      redistributable ? free,
-    }@attrs:
-    {
-      inherit
-        shortName
-        free
-        deprecated
-        redistributable
-        ;
-      licenseType = "simple";
-    }
-    // optionalAttrs (attrs ? spdxId) {
-      inherit spdxId;
-      url = "https://spdx.org/licenses/${spdxId}.html";
-    }
-    // optionalAttrs (attrs ? url) {
-      inherit url;
-    }
-    // optionalAttrs (attrs ? fullName) {
-      inherit fullName;
-    };
-
+  mkLicense = shortName: license: lib.licenses.mkLicense ({ inherit shortName; } // license);
 in
 lib.mapAttrs mkLicense (
   {
@@ -281,6 +248,12 @@ lib.mapAttrs mkLicense (
     bsd3ClauseTso = {
       spdxId = "BSD-3-Clause-Tso";
       fullName = "BSD 3-Clause Tso variant";
+    };
+
+    bsdAskToEndorse = {
+      #spdxId = "BSD-ask-to-endorse"; # Accepted to SPDX waiting on next SPDX release
+      fullName = "BSD - ask to endorse";
+      url = "https://github.com/sudo-project/sudo/blob/c1307ea9ff340ce0538779f8e456501461fc44b7/plugins/sudoers/redblack.c#L24-L43";
     };
 
     bsdAxisNoDisclaimerUnmodified = {
@@ -709,6 +682,11 @@ lib.mapAttrs mkLicense (
       url = "https://geant4.web.cern.ch/geant4/license/LICENSE.html";
     };
 
+    gccException20 = {
+      spdxId = "GCC-exception-2.0";
+      fullName = "GCC Runtime Library exception 2.0";
+    };
+
     gccException31 = {
       spdxId = "GCC-exception-3.1";
       fullName = "GCC Runtime Library exception 3.1";
@@ -723,11 +701,6 @@ lib.mapAttrs mkLicense (
     generaluser = {
       fullName = "GeneralUser GS License v2.0";
       url = "https://www.schristiancollins.com/generaluser.php"; # license included in sources
-    };
-
-    gfl = {
-      fullName = "GUST Font License";
-      url = "https://www.gust.org.pl/projects/e-foundry/licenses/GUST-FONT-LICENSE.txt";
     };
 
     gfsl = {
@@ -1475,12 +1448,6 @@ lib.mapAttrs mkLicense (
       fullName = "MIT-STK License";
     };
 
-    sudo = {
-      shortName = "sudo";
-      fullName = "Sudo License (ISC-style)";
-      url = "https://www.sudo.ws/about/license/";
-    };
-
     sustainableUse = {
       spdxId = "SUL-1.0";
       fullName = "Sustainable Use License";
@@ -1648,6 +1615,8 @@ lib.mapAttrs mkLicense (
     vol-sl = {
       fullName = "Volatility Software License, Version 1.0";
       url = "https://www.volatilityfoundation.org/license/vsl-v1.0";
+      free = false;
+      redistributable = true;
     };
 
     vsl10 = {
